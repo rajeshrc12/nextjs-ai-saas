@@ -84,6 +84,7 @@ const ImagePage = () => {
                   <FormItem className="col-span-12 lg:col-span-6">
                     <FormControl className="m-0 p-0">
                       <Input
+                        required={true}
                         className="
                       border-0 
                       outline-none 
