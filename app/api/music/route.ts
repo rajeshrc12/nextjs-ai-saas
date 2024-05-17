@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
+import { checkSubscription } from "@/lib/subscription";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -22,8 +23,9 @@ export async function POST(request: Request) {
       return new NextResponse("Prompt are required", { status: 400 });
     }
     const freeTrial = await checkApiLimit();
+    const isPro = await checkSubscription();
 
-    if (!freeTrial) {
+    if (!freeTrial && !isPro) {
       return new NextResponse("Free trial expired", { status: 403 });
     }
     const output = await replicate.run(
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
         },
       }
     );
-    await increaseApiLimit();
+    if (!isPro) await increaseApiLimit();
     return NextResponse.json(output);
   } catch (error) {
     console.log("[CONVERSATION_ERROR]", error);
