@@ -8,8 +8,8 @@ import CrispProvider from "@/components/crisp-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NextJS AI SaaS",
-  description: "NextJS AI SaaS",
+  title: "SmartTalk",
+  description: "SmartTalk",
 };
 
 export default function RootLayout({

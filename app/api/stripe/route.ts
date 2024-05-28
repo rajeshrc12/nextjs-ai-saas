@@ -40,7 +40,7 @@ export async function GET() {
           price_data: {
             currency: "INR",
             product_data: {
-              name: "Genius Pro",
+              name: "SmartTalk Pro",
               description: "Unlimited AI Generation",
             },
             unit_amount: 2000,
